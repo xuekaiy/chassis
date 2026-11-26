@@ -1,0 +1,283 @@
+build:
+  generated-by: csolution version 2.15.1+p3-gf46d68bf
+  solution: ../../../Engineer_CusCtrlr.csolution.yml
+  project: ../../../Engineer_CusCtrlr.cproject.yml
+  context: Engineer_CusCtrlr+Engineer_CusCtrlr
+  compiler: AC6
+  device: STMicroelectronics::STM32H723VGTx
+  device-pack: Keil::STM32H7xx_DFP@4.1.3
+  device-books:
+    - name: https://developer.arm.com/documentation/dui0646/latest
+      title: Cortex-M7 Generic User Guide
+    - name: https://www.st.com/resource/en/reference_manual/rm0468-stm32h723733-stm32h725735-and-stm32h730-value-line-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
+      title: STM32H723/733, STM32H725/735 and STM32H730 Value line Reference Manual
+    - name: https://www.st.com/resource/en/datasheet/stm32h723zg.pdf
+      title: STM32H723VE STM32H723VG STM32H723ZE STM32H723ZG Data Sheet
+  dbgconf:
+    - file: ../../../.cmsis/Engineer_CusCtrlr+Engineer_CusCtrlr.dbgconf
+      version: 1.0.2
+  processor:
+    dsp: on
+    endian: little
+    fpu: dp
+    core: Cortex-M7
+  packs:
+    - pack: ARM::CMSIS@6.3.0
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0
+    - pack: Keil::STM32H7xx_DFP@4.1.3
+      path: ${CMSIS_PACK_ROOT}/Keil/STM32H7xx_DFP/4.1.3
+  optimize: debug
+  debug: on
+  misc:
+    ASM:
+      - -masm=auto
+    C:
+      - -std=c99
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    CPP:
+      - -xc++
+      - -std=c++11
+      - -fno-exceptions
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+      - -Wno-packed
+      - -Wno-missing-variable-declarations
+      - -Wno-missing-prototypes
+      - -Wno-missing-noreturn
+      - -Wno-sign-conversion
+      - -Wno-nonportable-include-path
+      - -Wno-reserved-id-macro
+      - -Wno-unused-macros
+      - -Wno-documentation-unknown-command
+      - -Wno-documentation
+      - -Wno-license-management
+      - -Wno-parentheses-equality
+    Link:
+      - --map
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      - --info sizes
+      - --info totals
+      - --info unused
+      - --info veneers
+      - --strict
+      - --summary_stderr
+      - --info summarysizes
+  define:
+    - USE_PWR_LDO_SUPPLY
+    - USE_HAL_DRIVER
+    - STM32H723xx
+    - STM32H723xx
+    - _RTE_
+  define-asm:
+    - STM32H723xx
+    - _RTE_
+  add-path:
+    - ../../../../Core/Inc
+    - ../../../../BSP/Inc
+    - ../../../../Drivers/STM32H7xx_HAL_Driver/Inc
+    - ../../../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+    - ../../../../Middlewares/Third_Party/FreeRTOS/Source/include
+    - ../../../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+    - ../../../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+    - ../../../../Drivers/CMSIS/RTOS2/Include
+    - ../../../../Drivers/CMSIS/Device/ST/STM32H7xx/Include
+    - ../../../../Drivers/CMSIS/Include
+    - ../../../RTE/_Engineer_CusCtrlr
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Include
+  add-path-asm:
+    - ../../../RTE/_Engineer_CusCtrlr
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Include
+  output-dirs:
+    intdir: ../../../tmp
+    outdir: .
+    rtedir: ../../../RTE
+  output:
+    - type: elf
+      file: Engineer_CusCtrlr.axf
+    - type: comp-db
+      file: compile_commands.json
+    - type: comp-db
+      file: compile_macros_c.h
+    - type: comp-db
+      file: compile_macros_cxx.h
+  components:
+    - component: ARM::CMSIS:CORE@6.2.0
+      condition: ARMv6_7_8-M Device
+      from-pack: ARM::CMSIS@6.3.0
+      selected-by: ARM::CMSIS:CORE
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Include
+          category: include
+          version: 6.2.0
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Include/tz_context.h
+          category: header
+          version: 6.2.0
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Template/ARMv8-M/main_s.c
+          category: sourceC
+          attr: template
+          version: 1.1.1
+          select: Secure mode 'main' module for ARMv8-M
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Core/Template/ARMv8-M/tz_context.c
+          category: sourceC
+          attr: template
+          version: 1.1.1
+          select: RTOS Context Management (TrustZone for ARMv8-M)
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/6.3.0/CMSIS/Documentation/html/Core/index.html
+          category: doc
+          version: 6.2.0
+  linker:
+    script: ../../../Engineer_CusCtrlr_Engineer_CusCtrlr.sct
+  groups:
+    - group: Application/MDK-ARM
+      files:
+        - file: ../../../startup_stm32h723xx.s
+          category: sourceAsm
+    - group: Application/User/Core
+      files:
+        - file: ../../../../Core/Src/main.c
+          category: sourceC
+        - file: ../../../../Core/Src/gpio.c
+          category: sourceC
+        - file: ../../../../Core/Src/freertos.c
+          category: sourceC
+        - file: ../../../../Core/Src/dma.c
+          category: sourceC
+        - file: ../../../../Core/Src/fdcan.c
+          category: sourceC
+        - file: ../../../../Core/Src/tim.c
+          category: sourceC
+        - file: ../../../../Core/Src/usart.c
+          category: sourceC
+        - file: ../../../../Core/Src/stm32h7xx_it.c
+          category: sourceC
+        - file: ../../../../Core/Src/stm32h7xx_hal_msp.c
+          category: sourceC
+        - file: ../../../../Core/Src/stm32h7xx_hal_timebase_tim.c
+          category: sourceC
+    - group: BSP
+      files:
+        - file: ../../../../BSP/Src/sysconfig.c
+          category: sourceC
+        - file: ../../../../BSP/Src/BSP_Init.c
+          category: sourceC
+        - file: ../../../../BSP/Src/PID.c
+          category: sourceC
+        - file: ../../../../BSP/Src/Motor.c
+          category: sourceC
+        - file: ../../../../BSP/Src/DJI_Motor.c
+          category: sourceC
+        - file: ../../../../BSP/Src/DM_driver.c
+          category: sourceC
+        - file: ../../../../BSP/Src/User_CAN.c
+          category: sourceC
+        - file: ../../../../BSP/Src/Task_Can.c
+          category: sourceC
+        - file: ../../../../BSP/Src/RemoteControl_Comm.c
+          category: sourceC
+        - file: ../../../../BSP/Src/Debug_Uart.c
+          category: sourceC
+    - group: Drivers/STM32H7xx_HAL_Driver
+      files:
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
+          category: sourceC
+        - file: ../../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
+          category: sourceC
+    - group: Drivers/CMSIS
+      files:
+        - file: ../../../../Core/Src/system_stm32h7xx.c
+          category: sourceC
+    - group: Middlewares/FreeRTOS
+      files:
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/list.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/timers.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+          category: sourceC
+        - file: ../../../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
+          category: sourceC
+  constructed-files:
+    - file: ../../../RTE/_Engineer_CusCtrlr/RTE_Components.h
+      category: header
+  licenses:
+    - license: Apache-2.0
+      packs:
+        - pack: ARM::CMSIS@6.3.0
+        - pack: Keil::STM32H7xx_DFP@4.1.3
+      components:
+        - component: ARM::CMSIS:CORE@6.2.0
+    - license: BSD-3-Clause
+      packs:
+        - pack: Keil::STM32H7xx_DFP@4.1.3

@@ -1,0 +1,34 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/CMakeFiles/Engineer_CusCtrlr+Engineer_CusCtrlr-configure"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/CMakeFiles/Engineer_CusCtrlr+Engineer_CusCtrlr-configure.rule"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/Engineer_CusCtrlr+Engineer_CusCtrlr/src/Engineer_CusCtrlr+Engineer_CusCtrlr-stamp/Engineer_CusCtrlr+Engineer_CusCtrlr-configure.rule"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/Engineer_CusCtrlr+Engineer_CusCtrlr/src/Engineer_CusCtrlr+Engineer_CusCtrlr-stamp/Engineer_CusCtrlr+Engineer_CusCtrlr-patch.rule"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/Engineer_CusCtrlr+Engineer_CusCtrlr/src/Engineer_CusCtrlr+Engineer_CusCtrlr-stamp/Engineer_CusCtrlr+Engineer_CusCtrlr-update.rule"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/Engineer_CusCtrlr+Engineer_CusCtrlr/src/Engineer_CusCtrlr+Engineer_CusCtrlr-stamp/Engineer_CusCtrlr+Engineer_CusCtrlr-download.rule"
+		},
+		{
+			"file" : "F:/robomaster/chasis/MDK-ARM/tmp/Engineer_CusCtrlr/default/Engineer_CusCtrlr+Engineer_CusCtrlr/src/Engineer_CusCtrlr+Engineer_CusCtrlr-stamp/Engineer_CusCtrlr+Engineer_CusCtrlr-mkdir.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Engineer_CusCtrlr+Engineer_CusCtrlr"
+		],
+		"name" : "Engineer_CusCtrlr+Engineer_CusCtrlr-configure"
+	}
+}

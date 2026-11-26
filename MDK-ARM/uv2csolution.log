@@ -1,0 +1,13 @@
+1 out of 1 target(s) converted
+
+Created solution: F:/robomaster/chasis/MDK-ARM/Engineer_CusCtrlr.csolution.yml
+
+With projects:
+
+- F:/robomaster/chasis/MDK-ARM/Engineer_CusCtrlr.cproject.yml
+
+Error: 0 error(s), 1 warning(s):
+
+Warnings:
+
+	 file 'F:/robomaster/chasis/Middlewares/Third_Party/FreeRTOS/Source/portable/Common/mpu_wrappers_v2.c' does not exists

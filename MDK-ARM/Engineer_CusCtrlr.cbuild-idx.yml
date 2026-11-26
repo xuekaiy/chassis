@@ -1,0 +1,20 @@
+build-idx:
+  generated-by: csolution version 2.15.1+p3-gf46d68bf
+  target: Engineer_CusCtrlr
+  csolution: Engineer_CusCtrlr.csolution.yml
+  cbuild-run: out/Engineer_CusCtrlr+Engineer_CusCtrlr.cbuild-run.yml
+  tmpdir: tmp/Engineer_CusCtrlr/default
+  cprojects:
+    - cproject: Engineer_CusCtrlr.cproject.yml
+  cbuilds:
+    - cbuild: out/Engineer_CusCtrlr/Engineer_CusCtrlr/Engineer_CusCtrlr+Engineer_CusCtrlr.cbuild.yml
+      project: Engineer_CusCtrlr
+      configuration: +Engineer_CusCtrlr
+      messages:
+        info:
+          - Engineer_CusCtrlr.cbuild-pack.yml - file is already up-to-date
+          - Engineer_CusCtrlr+Engineer_CusCtrlr.cbuild-run.yml - file generated successfully
+          - Engineer_CusCtrlr+Engineer_CusCtrlr.cbuild.yml - file is already up-to-date
+      packs-unused:
+        - pack: ARM::CMSIS-DSP@1.16.2
+        - pack: ARM::CMSIS-NN@4.1.0

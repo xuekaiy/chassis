@@ -1,0 +1,105 @@
+{
+  // ===========================================================================
+  // 正点原子 DAP 无线调试器 + pyOCD + STM32H723 调试配置
+  //
+  // 要解决的现象：
+  //   Unable to read memory. (@ 0xe000ed14)   <- SCB->CCR
+  //   Unable to read memory. (@ 0xe000ed10)   <- SCB->SCR
+  //   Debug session ended: CMSIS_DAP@pyOCD (launch)
+  //
+  // 原因：pyOCD 连上 DAP 后会探测 Cortex-M7 的 PPB ROM 表，第 0 项就是 SCS
+  //       (0xE000E000)。STM32H7 需要先把 DBGMCU_CR 的调试时钟/低功耗保持位配好，
+  //       而且在 connect under reset 模式下读 SCS 必失败。见 pyocd/pyOCD#1148。
+  //
+  // 三个配置按顺序试：① -> ② -> ③。第一个能通就固定用它。
+  // ===========================================================================
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // ① 推荐：pyocd_user.py 配 DBGMCU_CR + attach 模式 + 100 kHz
+      "name": "DAP无线 pyOCD ① DBGMCU脚本+attach+100k",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "pyocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/MDK-ARM/out/Engineer_CusCtrlr/Engineer_CusCtrlr/Engineer_CusCtrlr.axf",
+      "targetId": "stm32h723xx",
+      "interface": "swd",
+      "serverArgs": [
+        "--script", "${workspaceFolder}/pyocd_user.py",
+        "-O", "connect_mode=attach",
+        "-f", "100k"
+      ],
+      "svdFile": "C:/Users/xiaomi/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/4.1.3/CMSIS/SVD/STM32H723.svd",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+    },
+    {
+      // ② 隔离用：不加载脚本。若这个能通，说明脚本或 pyOCD 版本是变量；
+      //    若这个也报同样的错，问题在链路/供电/连接模式上。
+      "name": "DAP无线 pyOCD ② 无脚本+attach+100k",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "pyocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/MDK-ARM/out/Engineer_CusCtrlr/Engineer_CusCtrlr/Engineer_CusCtrlr.axf",
+      "targetId": "stm32h723xx",
+      "interface": "swd",
+      "serverArgs": [
+        "-O", "connect_mode=attach",
+        "-f", "100k"
+      ],
+      "svdFile": "C:/Users/xiaomi/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/4.1.3/CMSIS/SVD/STM32H723.svd",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+    },
+    {
+      // ③ 提速用：链路稳了再试 500 kHz。
+      //    如果偶发 "Unable to read memory"，说明无线余量不够，退回 100k。
+      "name": "DAP无线 pyOCD ③ DBGMCU脚本+attach+500k",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "pyocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/MDK-ARM/out/Engineer_CusCtrlr/Engineer_CusCtrlr/Engineer_CusCtrlr.axf",
+      "targetId": "stm32h723xx",
+      "interface": "swd",
+      "serverArgs": [
+        "--script", "${workspaceFolder}/pyocd_user.py",
+        "-O", "connect_mode=attach",
+        "-f", "500k"
+      ],
+      "svdFile": "C:/Users/xiaomi/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/4.1.3/CMSIS/SVD/STM32H723.svd",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+    }
+
+    // ------------------------------------------------------------------------
+    // 说明 1：为什么没有 cmsisPack
+    //   本机这个 DFP 是"解包"状态（只有 Keil.STM32H7xx_DFP.pdsc + CMSIS 子目录，
+    //   没有 .pack 文件）。pyOCD 的 --pack 对解包目录支持不稳定，加错了会让会话
+    //   直接起不来，所以默认不传。pyOCD 内置的 stm32h723xx 目标自带 H723 的
+    //   FLM，烧写和调试都不需要它。
+    //   如果你确实想试"Pack 自带的 Unlock Debug 调试序列"这条路线，在上面任意
+    //   配置里加一行（把路径换成实际 .pack 或 .pdsc）：
+    //       "cmsisPack": "C:/Users/xiaomi/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/4.1.3/Keil.STM32H7xx_DFP.pdsc",
+    //   加了如果报 pack 相关错误，删掉这行即可。
+    //
+    // 说明 2：如果你装的是 pyOCD 官方 VS Code 扩展（调试类型是 pyocd），
+    //   把配置体换成下面这样（不同版本支持的键不完全一致，connect_mode 无法
+    //   透传时就继续用 cortex-debug 那套）：
+    //
+    //   {
+    //     "name": "DAP无线 (pyOCD 扩展)",
+    //     "type": "pyocd",
+    //     "request": "launch",
+    //     "cwd": "${workspaceFolder}",
+    //     "targetId": "stm32h723xx",
+    //     "cmsisDap": { "frequency": 100000, "protocol": "swd" },
+    //     "serverArgs": ["--script", "${workspaceFolder}/pyocd_user.py", "-O", "connect_mode=attach"],
+    //     "executable": "${workspaceFolder}/MDK-ARM/out/Engineer_CusCtrlr/Engineer_CusCtrlr/Engineer_CusCtrlr.axf",
+    //     "svdFile": "C:/Users/xiaomi/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/4.1.3/CMSIS/SVD/STM32H723.svd"
+    //   }
+    // ------------------------------------------------------------------------
+  ]
+}

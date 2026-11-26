@@ -1,0 +1,10 @@
+CompileFlags:
+  CompilationDatabase: f:\robomaster\chasis\MDK-ARM\out\Engineer_CusCtrlr\Engineer_CusCtrlr
+
+---
+If:
+  PathMatch: .*\.(c|C|h)$
+CompileFlags:
+  Add:
+    - -include
+    - f:\robomaster\chasis\MDK-ARM\out\Engineer_CusCtrlr\Engineer_CusCtrlr\compile_macros_c.h

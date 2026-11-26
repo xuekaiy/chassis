@@ -1,0 +1,142 @@
+project:
+  packs:
+    - pack: ARM::CMSIS@^6.3.0
+    - pack: Keil::STM32H7xx_DFP@^4.1.3
+    - pack: ARM::CMSIS-NN@^4.0.0
+    - pack: ARM::CMSIS-DSP@^1.10.1
+  setups:
+    - setup: Options for Engineer_CusCtrlr
+      processor:
+        fpu: dp
+      add-path:
+        - ../Core/Inc
+        - ../BSP/Inc
+        - ../Drivers/STM32H7xx_HAL_Driver/Inc
+        - ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+        - ../Middlewares/Third_Party/FreeRTOS/Source/include
+        - ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+        - ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+        - ../Drivers/CMSIS/RTOS2/Include
+        - ../Drivers/CMSIS/Device/ST/STM32H7xx/Include
+        - ../Drivers/CMSIS/Include
+      debug: "on"
+      define:
+        - USE_PWR_LDO_SUPPLY
+        - USE_HAL_DRIVER
+        - STM32H723xx
+      misc:
+        - C:
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++11
+            - -fno-exceptions
+          ASM:
+            - -masm=auto
+          Link:
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  linker:
+    - script: Engineer_CusCtrlr_Engineer_CusCtrlr.sct
+  groups:
+    - group: Application/MDK-ARM
+      files:
+        - file: startup_stm32h723xx.s
+    - group: Application/User/Core
+      files:
+        - file: ../Core/Src/main.c
+        - file: ../Core/Src/gpio.c
+        - file: ../Core/Src/freertos.c
+        - file: ../Core/Src/dma.c
+        - file: ../Core/Src/fdcan.c
+        - file: ../Core/Src/tim.c
+        - file: ../Core/Src/usart.c
+        - file: ../Core/Src/stm32h7xx_it.c
+        - file: ../Core/Src/stm32h7xx_hal_msp.c
+        - file: ../Core/Src/stm32h7xx_hal_timebase_tim.c
+    - group: BSP
+      files:
+        - file: ../BSP/Src/sysconfig.c
+        - file: ../BSP/Src/BSP_Init.c
+        - file: ../BSP/Src/PID.c
+        - file: ../BSP/Src/Motor.c
+        - file: ../BSP/Src/DJI_Motor.c
+        - file: ../BSP/Src/DM_driver.c
+        - file: ../BSP/Src/User_CAN.c
+        - file: ../BSP/Src/Task_Can.c
+        - file: ../BSP/Src/RemoteControl_Comm.c
+        - file: ../BSP/Src/Debug_Uart.c
+    - group: Drivers/STM32H7xx_HAL_Driver
+      files:
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
+        - file: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
+    - group: Drivers/CMSIS
+      files:
+        - file: ../Core/Src/system_stm32h7xx.c
+    - group: Middlewares/FreeRTOS
+      files:
+        # 该文件在本工程携带的 FreeRTOS 版本中不存在（portable/Common 下只有 mpu_wrappers.c），
+        # 且 FreeRTOSConfig.h 中 configENABLE_MPU = 0，不需要 MPU 包装层。
+        # 保留原引用会导致 csolution 在加载阶段直接报错、整个工程无法构建。
+        # - file: ../Middlewares/Third_Party/FreeRTOS/Source/portable/Common/mpu_wrappers_v2.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/timers.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+        # AC6(armclang) 不支持 armcc 的内嵌汇编（__asm { ... }），原 RVDS/ARM_CM4F 端口无法编译。
+        # 改用 GCC/ARM_CM4F 端口：它使用 __attribute__((naked)) + GNU 内联汇编，armclang 可直接编译。
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
+  components:
+    - component: ARM::CMSIS:CORE
